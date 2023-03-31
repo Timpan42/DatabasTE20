@@ -7,3 +7,8 @@ Tror jag vet vad jag gör just nu och vad jag behöver göra.
 Har börjat att sätta upp modelen för programmet
 med variabel och man kommer inte i databasen.
 Har börjat med en view design.
+
+## 31-03-2023
+Kan spara allt i arryas som kan användas i framtiden.
+Dem går också att printa i terminalen för nu,
+men kommer ändras senare så den är på viewn. 

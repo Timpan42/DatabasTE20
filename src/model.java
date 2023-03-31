@@ -1,82 +1,82 @@
+import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 public class model {
 
-    int forumId;
-    String forumContent;
-    String forumTitel;
-    Timestamp forumCreatedAt;
-    int forumAuthorId;
-    int usersId;
-    String usersName;
-    String usersPassword;
+    ArrayList<Integer> forumId = new ArrayList<>();
+    ArrayList<String> forumContent = new ArrayList<>();
+    ArrayList<String> forumTitel = new ArrayList<>();
+    ArrayList<Timestamp> forumCreatedAt = new ArrayList<>();
+    ArrayList<Integer> forumAuthorId = new ArrayList<>();
+    ArrayList<Integer> usersId = new ArrayList<>();
+    ArrayList<String> usersName = new ArrayList<>();
+    ArrayList<String> usersPassword = new ArrayList<>();
 
-    public int getForumId() {
+    public ArrayList<Integer> getForumId() {
         return forumId;
     }
 
-    public void setForumId(int forumId) {
+    public void setForumId(ArrayList<Integer> forumId) {
         this.forumId = forumId;
     }
 
-    public String getForumContent() {
+    public ArrayList<String> getForumContent() {
         return forumContent;
     }
 
-    public void setForumContent(String forumContent) {
+    public void setForumContent(ArrayList<String> forumContent) {
         this.forumContent = forumContent;
     }
 
-    public String getForumTitel() {
+    public ArrayList<String> getForumTitel() {
         return forumTitel;
     }
 
-    public void setForumTitel(String forumTitel) {
+    public void setForumTitel(ArrayList<String> forumTitel) {
         this.forumTitel = forumTitel;
     }
 
-    public Timestamp getForumCreatedAt() {
+    public ArrayList<Timestamp> getForumCreatedAt() {
         return forumCreatedAt;
     }
 
-    public void setForumCreatedAt(Timestamp forumCreatedAt) {
+    public void setForumCreatedAt(ArrayList<Timestamp> forumCreatedAt) {
         this.forumCreatedAt = forumCreatedAt;
     }
 
-    public int getForumAuthorId() {
+    public ArrayList<Integer> getForumAuthorId() {
         return forumAuthorId;
     }
 
-    public void setForumAuthorId(int forumAuthorId) {
+    public void setForumAuthorId(ArrayList<Integer> forumAuthorId) {
         this.forumAuthorId = forumAuthorId;
     }
 
-    public int getUsersId() {
+    public ArrayList<Integer> getUsersId() {
         return usersId;
     }
 
-    public void setUsersId(int usersId) {
+    public void setUsersId(ArrayList<Integer> usersId) {
         this.usersId = usersId;
     }
 
-    public String getUsersName() {
+    public ArrayList<String> getUsersName() {
         return usersName;
     }
 
-    public void setUsersName(String usersName) {
+    public void setUsersName(ArrayList<String> usersName) {
         this.usersName = usersName;
     }
 
-    public String getUsersPassword() {
+    public ArrayList<String> getUsersPassword() {
         return usersPassword;
     }
 
-    public void setUsersPassword(String usersPassword) {
+    public void setUsersPassword(ArrayList<String> usersPassword) {
         this.usersPassword = usersPassword;
     }
-
-
-
 
     Connection conn = null;
     public void databaseConector() {
@@ -89,7 +89,8 @@ public class model {
         }
     }
 
-    public void forumPrint(){
+    public void getForum(){
+        int j = 0;
         try {
             Statement stmt = conn.createStatement();
             String SQLQuery = "SELECT * FROM tf03forum";
@@ -101,15 +102,13 @@ public class model {
             for (int i = 1 ; i <= numCols ; i++) {
                 System.out.println(metadata.getColumnClassName(i));
             }
-
             while (result.next()) {
-                String output = "";
-                output += result.getInt("id") + ", " +
-                        result.getString("content") + ", " +
-                        result.getString("title") + ", " +
-                        result.getTimestamp("createdAt") + ", " +
-                        result.getInt("authorId");
-                System.out.println(output);
+              forumId.add(result.getInt("id"));
+              forumContent.add(result.getString("content"));
+              forumTitel.add(result.getString("title"));
+              forumCreatedAt.add(result.getTimestamp("createdAt"));
+              forumAuthorId.add(result.getInt("authorId"));
+              j += 1;
             }
 
             stmt.close();
@@ -119,9 +118,20 @@ public class model {
         }
     }
 
+    public void printArrays(){
+        for (int i = 0; i < forumId.size(); i++) {
+            System.out.println(""+forumTitel.get(i) +
+                    "," + forumContent.get(i) +
+                    "" + forumAuthorId.get(i) +
+                    "" + forumId.get(i) +
+                    "" + forumCreatedAt.get(i));
+        }
+    }
+
     public static void main(String[] args) {
         model m = new model();
         m.databaseConector();
-        m.forumPrint();
+        m.getForum();
+        m.printArrays();
     }
 }
