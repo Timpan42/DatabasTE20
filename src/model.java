@@ -1,5 +1,3 @@
-import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -118,14 +116,16 @@ public class model {
         }
     }
 
-    public void printArrays(){
+    public String printArrays(){
+        String msg = null;
         for (int i = 0; i < forumId.size(); i++) {
-            System.out.println(""+forumTitel.get(i) +
+            msg =(""+forumTitel.get(i) +
                     "," + forumContent.get(i) +
                     "" + forumAuthorId.get(i) +
                     "" + forumId.get(i) +
                     "" + forumCreatedAt.get(i));
         }
+        return msg;
     }
 
     public static void main(String[] args) {
